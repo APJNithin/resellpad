@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap");
+.conta{
+    background-color: rgba(233, 229, 222,0.5);
+}
+.dataRow{
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    overflow-y: scroll;
+    padding: 12px;
+    min-height: 15rem;
+    max-height: 22rem;
+}
+
+.dataRow::-webkit-scrollbar{
+    display: none;
+}
+
+h2{
+    font-family: 'Roboto', sans-serif;
+}
+.cardData{
+    margin:5px 5px 5px 10px;
+    min-width: 18rem;
+    max-width: 18rem;
+}
+.bar{
+    border-radius: 8px;
+    margin-top: 13px;
+    margin-bottom: 12px;
+}

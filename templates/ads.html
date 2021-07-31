@@ -1,0 +1,55 @@
+{% include "home.html" %}
+{% block content %}
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold text-gray-900">
+      Available Ads
+    </h1>
+  </div>
+</header>
+<main>
+     {% for i in data %}
+      <div class="bar container bg-indigo-600 .rounded-lg shadow-md">
+        <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between flex-wrap">
+            <div class="w-0 flex-1 flex items-center">
+              <span class="flex p-2 rounded-lg bg-indigo-800">
+                <!-- Heroicon name: outline/speakerphone -->
+                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                </svg>
+              </span>
+              <p class="ml-3 font-medium text-white truncate">
+                <span class="hidden md:inline">
+                  Category! {{ i.0.category }}
+                </span>
+              </p>
+            </div>
+            </div>
+          </div>
+        </div>
+      <div class="dataRow container">
+       {% for j in i %}
+      <div class="cardData card shadow-md rounded-md" style="width: 18rem;">
+        <img src="/static/media/{{ j.fileName }}" class="card-img-top mt-2" alt="image" style="object-fit: cover;">
+        <div class="card-body">
+        <h5 class="card-title">Title-{{ j.Name}}</h5>
+          <p class="card-text">Price: €{{ j.Price }}</p>
+          <p>Offered By:{{ j.Posted_By }} </p>
+          <a href="/product/{{j.id}}" type="submit" id="view" class="shadow-md rounded-md btn btn-primary shadow-md">View Product</a>
+        </div>
+      </div>
+     {% endfor %}
+    </div>
+
+{% endfor %}
+      <!-- /End replace -->
+    </div>
+  </main>
+
+
+  <script>
+
+  </script>
+
+  {% endblock content %}

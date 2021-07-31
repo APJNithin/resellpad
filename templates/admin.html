@@ -1,0 +1,196 @@
+{% include "home.html" %}
+
+{% block content %}
+<style>
+    .buttom{
+        position: absolute;
+        top:100px;
+        right:13px;
+    }
+</style>
+<header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold text-gray-900">
+        Admin Panel
+      </h1>
+    </div>
+  </header>
+
+  {% if message %}
+<div class="header-body heading" id="popup">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!!</strong> {{message}}
+  </div>
+</div>
+{% endif %}
+
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <button id="tablesModify" value="project" class="buttom inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+    Users
+  </button>
+<div class="flex flex-col mt-4 mx-5" id="projectTable">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Id
+                  </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Project Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Posted By
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Status
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Date
+                </th>
+                <th scope="col" class="relative px-6 py-3">
+                  <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+            {% for i in product %}
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">{{ i.id}}</div>
+                  </td>
+
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="ml-4">
+                      <div class="text-sm font-medium text-gray-900">
+                        {{ i.Name }}
+                      </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">{{ i.Posted_By }}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    {{ i.Approved.name }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ i.Date }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <a href="/admin/{{i.id}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                </td>
+                 <td>
+                   <a href="/admin/delete/{{i.id}}" class="fa fa-trash"></a>
+                  </td>
+              </tr>
+  
+              <!-- More people... -->
+            </tbody>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="flex flex-col mt-4 mx-5" id="projectUser">
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Id
+                  </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  UserName
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Delete
+                </th>
+              </tr>
+            </thead>
+            {% for i in user %}
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">{{ i.id}}</div>
+                  </td>
+
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="ml-4">
+                      <div class="text-sm font-medium text-gray-900">
+                        {{ i.username }}
+                      </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">{{ i.email }}</div>
+                </td>
+                <!--td class="px-6 py-4 whitespace-nowrap">
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                    {{ i.password }}
+                  </span>
+                </td-->
+                <td>
+                  {% if i.username !="admin" %}
+                  <a href="/admin/delete/user/{{i.id}}" class="fa fa-trash"></a>
+                  {% endif %}
+                 </td>
+  
+              <!-- More people... -->
+            </tbody>
+            {% endfor %}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+ 
+    let ab = document.getElementById("popup");
+    if (ab) {
+      setTimeout(() => {
+        ab.remove();
+      }, 2000);
+    }
+    const data = document.getElementById("tablesModify"); 
+    data.addEventListener("click",(e)=>{
+        if(e.target.value == "user"){
+            e.target.value ="project";
+            data.innerHTML = "User";
+        }
+        else if(e.target.value == "project"){
+            e.target.value = "user";
+            data.innerHTML = "Project";
+        }
+        console.log(e.target.value);
+    })
+
+    setInterval(()=>{
+        const user = document.getElementById("projectTable");
+        const button = document.getElementById("tablesModify");
+        const data = document.getElementById("projectUser");
+        if(button.value == "user"){
+            user.style.display = "none";
+            data.style.display = "block";
+        }
+        else{
+            user.style.display = "block";
+            data.style.display = "none";
+        }
+    },1000);
+</script>
+
+{% endblock content %}

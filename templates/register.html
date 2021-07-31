@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResellPad</title>
+    <meta name="description" content="">
+
+    <!-- Tailwind -->
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+
+        .font-family-karla {
+            font-family: karla;
+        }
+    </style>
+</head>
+
+{% if message %}
+<div class="header-body heading" id="popup">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!!</strong> {{message}}
+  </div>
+</div>
+{% endif %}
+
+<body class="bg-white font-family-karla h-screen">
+
+    <div class="w-full flex flex-wrap">
+
+        <!-- Login Section -->
+        <div class="w-full md:w-1/2 flex flex-col">
+
+            <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
+                <a href="/" class="bg-black text-white font-bold text-xl p-4">ResellPad</a>
+            </div>
+
+            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+                <p class="text-center text-3xl">Welcome.</p>
+                <form class="flex flex-col pt-3 md:pt-8" action="{{ url_for("register") }}" method="POST">
+                    <div class="flex flex-col pt-4">
+                        <label for="username" class="text-lg">Username</label>
+                        {{ reg_form.username(id="username", placeholder="Username", class_="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline") }}
+                        <ul>{% for error in reg_form.username.errors %}
+                            <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+
+                    <div class="flex flex-col pt-4">
+                        <label for="Email" class="text-lg">Email</label>
+                        {{ reg_form.email(type="email", id="email", placeholder="Email", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" ) }}
+
+                        <ul>{% for error in reg_form.email.errors %}
+                            <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+    
+                    <div class="flex flex-col pt-4">
+                        <label for="password" class="text-lg">Password</label>
+                        {{ reg_form.password(id="password", placeholder="Password", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline") }}
+
+                        <ul>{% for error in reg_form.password.errors %}
+                            <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+
+                    <div class="flex flex-col pt-4">
+                        <label for="password" class="text-lg">Confirm Password</label>
+                        {{ reg_form.confirm(id="confirm", placeholder="Confirm Password", class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline") }}
+
+                        <ul>{% for error in reg_form.confirm.errors %}
+                            <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                    {{ reg_form.csrf_token }}
+                    <input type="submit" value="Register Now" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                </form>
+                <div class="text-center pt-12 pb-12">
+                    <p>Already have an account? <a href="/login" class="underline font-semibold">Login here.</a></p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Image Section -->
+        <div class="w-1/2 shadow-2xl">
+            <img class="object-cover w-full h-screen hidden md:block" src="https://source.unsplash.com/IXUM4cJynP0">
+        </div>
+    </div>
+
+</body>
+
+<script>
+    let ab = document.getElementById("popup");
+    if (ab) {
+      setTimeout(() => {
+        ab.remove();
+      }, 2000);
+    }
+  </script>
+</html>

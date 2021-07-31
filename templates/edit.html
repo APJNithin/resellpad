@@ -1,0 +1,164 @@
+{% include "home.html" %}
+
+{% block content %}
+<header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold text-gray-900">
+        {{ project.Name }}
+      </h1>
+    </div>
+  </header>
+  {% if message %}
+  <div class="header-body heading" id="popup">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Success!!</strong> {{message}}
+    </div>
+  </div>
+  {% endif %}
+
+  <body class="font-mono bg-gray-400">
+    <!-- Container -->
+    <div class="container mx-auto">
+        <div class="flex justify-center px-6 my-12">
+            <!-- Row -->
+            <div class="w-full xl:w-3/4 lg:w-11/12 flex">
+                <!-- Col -->
+                <div
+                    class="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
+                    style="background-image: url('/static/media/{{ project.fileName }}')"
+                ></div>
+                <!-- Col -->
+                <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
+                    <h3 class="pt-4 text-2xl text-center">Update Ad Details</h3>
+                    <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" method="POST" action="/admin/{{project.id}}">
+                        <div class="mb-4 md:flex md:justify-between">
+                            <div class="mb-4 md:mr-2 md:mb-0">
+                                <label class="block mb-2 text-sm font-bold text-gray-700" for="name">
+                                    Product Name
+                                </label>
+                                <input
+                                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    value="{{project.Name}}"
+                                />
+                            </div>
+                            <div class="md:ml-2">
+                                <label class="block mb-2 text-sm font-bold text-gray-700" for="price">
+                                    Price
+                                </label>
+                                <input
+                                    class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    id="price"
+                                    name="price"
+                                    type="number"
+                                    value="{{project.Price}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block mb-2 text-sm font-bold text-gray-700" for="desc">
+                               Description
+                            </label>
+                            <input
+                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                id="desc"
+                                name="desc"
+                                type="text"
+                                value="{{project.desc}}"
+
+                            />
+                        </div>
+                        <div class="mb-4 md:flex md:justify-between">
+                            <div class="mb-4 md:mr-2 md:mb-0">
+                                <label class="block mb-2 text-sm font-bold text-gray-700" for="postedBy">
+                                    Posted By
+                                </label>
+                                <input
+                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    id="postedBy"
+                                    name="postedBy"
+                                    type="text"
+                                    value="{{project.Posted_By}}"
+
+                                />
+                            </div>
+                            <div class="md:ml-2">
+                                <label class="block mb-2 text-sm font-bold text-gray-700" for="status">
+                                    Project Status
+                                </label>
+                                <select class="form-select" name="status" id="status" aria-label="Default select example">
+                                    <option value="{{project.Approved.name}}" style="display: none;">{{project.Approved.name}}</option>
+                                    <option value="approved">approved</option>
+                                    <option value="unapproved">unapproved</option>
+                                  </select>
+                            </div>
+
+                        </div>
+                        <div class="mb-4 md:flex md:justify-between mt=-5">
+                            <div class="mb-4 md:mr-2 md:mb-0">
+                                <label class="block mb-2 text-sm font-bold text-gray-700" for="category">
+                                    Category
+                                </label>
+                                <select class="form-select" name="category" id="category" aria-label="Default select example">
+                                    <option value="{{project.category}}" style="display: none;">{{project.category}}</option>
+                                    <option>Electronics</option>
+                                    <option>Mobiles & Accessories</option>
+                                    <option>Clothes</option>
+                                    <option>Vehicles</option>
+                                    <option>Others</option>
+                                  </select>
+                            </div>
+                            <div class="md:ml-2">
+                                <label class="block mb-2 text-sm font-bold text-gray-700" for="filename">
+                                   Filename
+                                </label>
+                                <input
+                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    id="filename"
+                                    name="filename"
+                                    type="text"
+                                    value="{{project.fileName}}"
+                                />
+                            </div>
+
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block mb-2 text-sm font-bold text-gray-700" for="location">
+                               Location
+                            </label>
+                            <input
+                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                id="location"
+                                name="location"
+                                type="text"
+                                value="{{project.location}}"
+                            />
+                        </div>
+
+                        <div class="mb-6 text-center">
+                            <button
+                                class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                                type="submit"
+                            >
+                                Update
+                            </button>
+                        </div>
+                        <hr class="mb-6 border-t" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let ab = document.getElementById("popup");
+    if (ab) {
+      setTimeout(() => {
+        ab.remove();
+      }, 2000);
+    }
+  </script>
+{% endblock content %}

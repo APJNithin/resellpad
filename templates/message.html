@@ -1,0 +1,127 @@
+{% include "home.html" %}
+{% block content %}
+<style>
+
+.chatBody{
+  width:85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left:100px;
+  margin-top:20px;
+  border-radius: 10px;
+  height: 70vh;
+  overflow-y: scroll;
+  background-color:rgba(224, 222, 230, 0.7);
+  z-index: 2;
+}
+.chatBody::-webkit-scrollbar {
+  display: none;
+}
+
+.message{
+  border-radius: 4px;
+  align-self: flex-start;
+  margin:12px;
+  padding: 5px;
+  min-width: 400px;
+  background-color: rgba(52, 183, 241,0.9);
+  color: #FFF
+}
+
+.message span {
+	font-size: 13px;
+	float:right;
+}
+
+@media(max-width:800px){
+.replay{
+  position: absolute;
+  bottom: 28px;
+  right: 58px;
+}
+}
+.messageRight{
+  border-radius: 4px;
+  align-self: flex-end;
+  margin:12px;
+  padding: 5px;
+  min-width: 400px;
+  background-color: blueviolet;
+  color: #FFF;
+}
+
+.messageRight span {
+	font-size: 13px;
+	float:right;
+}
+
+
+.replay{
+  position: absolute;
+  bottom: 70px;
+  right: 180px;
+}
+</style>
+<header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold text-gray-900">
+        Messages
+      </h1>
+    </div>
+  </header>
+
+  <div class="chatBody">
+    {% for i in messages %}
+<div class="message">
+  <span>{{ i.SendBy }}</span>
+  <h4>{{ i.message }}</h4>
+  <span>{{ i.Date.strftime('%d-%m-%y %H:%M') }}</span>
+  
+</div>
+
+{% endfor %}
+
+{% for i in send %}
+<div class="messageRight">
+  <span>{{ i.SendTo }}</span>
+  <h4>{{ i.message }}</h4>
+  <span>{{ i.Date.strftime('%d-%m-%y %H:%M') }}</span>
+  
+</div>
+{% endfor %}
+
+<button type="button" class="btn btn-primary replay" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Reply</button>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/message">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" name="recipient-name" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" name="message-text" id="message-text"></textarea>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send message</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock content %}
