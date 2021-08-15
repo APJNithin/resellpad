@@ -31,7 +31,7 @@
       <div class="dataRow container">
        {% for j in i %}
       <div class="cardData card shadow-md rounded-md" style="width: 18rem;">
-        <img src="/static/media/{{ j.fileName }}" class="card-img-top mt-2" alt="image" style="object-fit: cover;">
+        <img src="/static/media/{{ j.fileName }}" class="mt-2 img-fluid img-thumbnail" alt="image" style="object-fit: cover;">
         <div class="card-body">
         <h5 class="card-title">Title-{{ j.Name}}</h5>
           <p class="card-text">Price: €{{ j.Price }}</p>

@@ -42,7 +42,7 @@ class Product(db.Model):
 	desc= db.Column(db.String(100),nullable=False)
 	Posted_By= db.Column(db.String(20),nullable=False)
 	Date = db.Column(db.DateTime,default=datetime.now)
-	category = db.Column(db.String(20),nullable=False)
+	category = db.Column(db.String(100),nullable=False)
 	location=db.Column(db.String(100),nullable=True)
 	fileName = db.Column(db.String(100),nullable=True)
 	Approved = db.Column(db.Enum(EmploymentStatusEnum),default=EmploymentStatusEnum.unapproved,nullable=False)
@@ -141,29 +141,46 @@ def add():
 	message = None
 	if(request.method == "POST"):
 		name = request.form.get("name")
+		print(name)
 		price = request.form.get("price")
+		print(price)
 		desc= request.form.get("desc")
+		print(desc)
 		category = request.form.get("category")
+		print(category)
 		street = request.form.get("street-address")
+		print(street)
 		city = request.form.get("city")
+		print(city)
 		state = request.form.get("state")
+		print(state)
 		zip = request.form.get("postal-code")
+		print(zip)
 		image= request.files['file-upload']
 		#image.save(os.path.join(BASE_DIR,f"app/static/media/{image.filename}"))
 		image.save(os.path.join(BASE_DIR_APP,f"static/media/{image.filename}"))
+		print(image.filename)
 		product = Product(Name=name,Price=price,desc=desc,category=category,location=street+" "+city+" "+state+ " "+zip,fileName=image.filename,Posted_By=current_user.username)
-		db.session.add(product)
+		print(product.Name)
+		print(product.Price)
+		print(product.desc)
+		print(product.category)
+		print(product.location)
+		print(product.fileName)
+		print(product.Posted_By)
 		try:
+			db.session.rollback()
+			db.session.add(product)
 			db.session.commit()
 			message= "Project Successfully Published and send for approval"
 			return redirect("/")
 		except:
 			message="Project Cant Published due to some error!"
+			db.session.rollback()
 
 	return render_template("add.html",message=message)
 
 @app.route("/product/<string:id>",methods=["GET","POST"])
-@login_required
 def productView(id):
 	message = None
 	Products = Product.query.filter_by(id=id).first()
@@ -276,4 +293,4 @@ def page_not_found(e):
     return render_template('404.html')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
